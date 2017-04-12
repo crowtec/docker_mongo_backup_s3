@@ -14,6 +14,4 @@ ADD backup.sh /app/backup
 
 RUN chmod +x /app/*
 
-# VOLUME /backup
-
 CMD /app/entrypoint

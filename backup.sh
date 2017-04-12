@@ -1,5 +1,5 @@
 #!/bin/sh
-echo "Crowtec Backup tool is starting..."
+echo "Crowtec backup tool is starting..."
 
 backup_name="$(date -u +%Y-%m-%d_%H-%M-%S)_UTC.enc"
 
