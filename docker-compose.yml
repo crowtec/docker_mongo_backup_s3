@@ -1,7 +1,7 @@
 version: '2'
 services:
   backup_mongo:
-    image: crowtec/backup_mongo
+    image: crowtec/backup-mongo-s3
     container_name: backup_mongo
     environment:
       - MONGO_URL=mongodb://mongo:27017/test
