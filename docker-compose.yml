@@ -1,0 +1,26 @@
+version: '2'
+services:
+  backup_mongo:
+    image: crowtec/backup_mongo
+    container_name: backup_mongo
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/test
+      - ENCRYPT_PWD=pass
+      - BACKUP_CRON_SCHEDULE="0 4 * * *"
+      - AWS_ACCESS_KEY_ID=your_aws_access_key
+      - AWS_SECRET_ACCESS_KEY=your_aws_secret_access_key
+      - AWS_DEFAULT_REGION=us-west-1
+      - S3_BUCKET=your_aws_bucket
+      - MAX_BACKUPS=5
+      - BACKUP_DIR=backup
+    links:
+      - mongo
+
+  mongo:
+    image: mongo
+    container_name: mongo
+    volumes:
+      - mongovolume:/data/db
+
+volumes:
+  mongovolume:
