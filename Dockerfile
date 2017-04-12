@@ -7,9 +7,7 @@ RUN pip install awscli
 
 RUN mkdir /backup
 
-ENV S3_PATH=mongodb
-ENV AWS_DEFAULT_REGION=us-east-1
-ENV BACKUP_DIR=.
+ENV S3_PATH=.
 
 ADD entrypoint.sh /app/entrypoint
 ADD backup.sh /app/backup

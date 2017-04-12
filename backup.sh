@@ -1,7 +1,7 @@
 #!/bin/sh
 echo "Crowtec Backup tool is starting..."
 
-BACKUP_NAME="$(date -u +%Y-%m-%d_%H-%M-%S)_UTC.enc"
+backup_name="$(date -u +%Y-%m-%d_%H-%M-%S)_UTC.enc"
 
 mongo_host=$(echo $MONGO_URL | sed -n "s/^mongodb\:\/\/\(\S*\)\:.*$/\1/p")
 mongo_port=$(echo $MONGO_URL | sed -n "s/^mongodb\:\/\/.*\:\(\S*\)\/.*$/\1/p")
@@ -15,19 +15,19 @@ echo "Backup created"
 tar -cvzf dump.gz dump
 echo "Backup compressed"
 # Encrypt backup
-openssl enc -aes-256-cbc -e -in dump.gz -out ${BACKUP_NAME} -k ${ENCRYPT_PWD}
+openssl enc -aes-256-cbc -e -in dump.gz -out ${backup_name} -k ${ENCRYPT_PWD}
 echo "Backup encrypted"
 
-base_dir="s3://${S3_BUCKET}/${S3_PATH}/${BACKUP_DIR}"
+base_dir="s3://${S3_BUCKET}/${S3_PATH}"
 
 # Upload daily backup
-aws s3 cp "${BACKUP_NAME}" "${base_dir}/daily/${BACKUP_NAME}"
+aws s3 cp "${backup_name}" "${base_dir}/daily/${backup_name}"
 echo "Daily backup uploaded"
 
 # Upload monthly backup
 if [ "$(date -u +%d)" == "01" ];
 then
-  aws s3 cp "${BACKUP_NAME}" "${base_dir}/monthly/$(date -u +%Y)/$(date -u +%m)/${BACKUP_NAME}"
+  aws s3 cp "${backup_name}" "${base_dir}/monthly/$(date -u +%Y)/$(date -u +%m)/${backup_name}"
   echo "Monthly backup uploaded"
 fi
 

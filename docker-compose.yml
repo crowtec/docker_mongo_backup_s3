@@ -11,8 +11,8 @@ services:
       - AWS_SECRET_ACCESS_KEY=your_aws_secret_access_key
       - AWS_DEFAULT_REGION=us-west-1
       - S3_BUCKET=your_aws_bucket
+      - S3_PATH=backup
       - MAX_BACKUPS=5
-      - BACKUP_DIR=backup
     links:
       - mongo
 
