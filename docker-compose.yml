@@ -13,6 +13,7 @@ services:
       - S3_BUCKET=your_aws_bucket
       - S3_PATH=backup
       - MAX_BACKUPS=5
+      - STORAGE=aws
     links:
       - mongo
 
